@@ -19,14 +19,14 @@ export class LoginPage {
   constructor(private authService: AuthService, private router: Router) {}
 
   login() {
-    this.authService.login(this.email, this.password).subscribe(
-      async (response) => {
+    this.authService.login(this.email, this.password).subscribe({
+      next: async (response) => {
         await this.authService.saveToken(response.token);
         this.router.navigate(['/home']);
       },
-      (error) => {
+      error: (error) => {
         console.error('Error de login', error);
       }
-    );
+    });
   }
 }
